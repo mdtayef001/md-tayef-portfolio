@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Figtree, JetBrains_Mono } from "next/font/google";
 import { CursorRing } from "@/components/ui/cursor-ring";
 import { Magnetic } from "@/components/ui/magnetic";
+import { SmoothAnchors } from "@/components/ui/smooth-anchors";
 import { site, socials } from "@/data/site";
 import "./globals.css";
 
@@ -79,7 +80,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${bricolage.variable} ${figtree.variable} ${jetbrains.variable} antialiased`}
     >
@@ -100,6 +100,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <CursorRing />
         <Magnetic />
+        <SmoothAnchors />
       </body>
     </html>
   );

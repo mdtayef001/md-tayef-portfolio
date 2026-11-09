@@ -24,18 +24,18 @@ function RevMarker({ rev, current }: { rev: string; current?: boolean }) {
   );
 }
 
-function RoleRow({ role }: { role: Role }) {
+function RoleCard({ role }: { role: Role }) {
   return (
     <li
       data-reveal
-      className={`relative grid gap-x-8 gap-y-4 border-b border-line-strong py-9 md:grid-cols-[3.5rem_11rem_1fr] ${
-        role.current ? "md:py-12" : ""
+      data-hscroll-panel
+      className={`relative flex flex-col rounded-[4px] border bg-ground-raised p-6 sm:p-8 ${
+        role.current ? "border-pen/50" : "border-line-strong"
       }`}
     >
-      <div className="flex items-center gap-5 md:contents">
+      <div className="flex items-center justify-between gap-4">
         <RevMarker rev={role.rev} current={role.current} />
-
-        <div className="font-mono text-sm text-ink-soft md:pt-2.5">
+        <span className="font-mono text-sm text-ink-soft">
           {role.current ? (
             <span className="relative inline-block px-1 font-semibold text-pen">
               {role.period}
@@ -47,38 +47,36 @@ function RoleRow({ role }: { role: Role }) {
           ) : (
             role.period
           )}
-        </div>
+        </span>
       </div>
 
-      <div className="min-w-0">
-        <h3 className={`font-bold tracking-[-0.02em] text-ink ${role.current ? "text-3xl sm:text-4xl" : "text-2xl"}`}>
-          {role.title}
-        </h3>
-        <p className="mt-1.5 text-lg text-ink-soft">
-          {role.orgUrl ? (
-            <a href={role.orgUrl} target="_blank" rel="noopener noreferrer" className="pen-link font-semibold text-ink">
-              {role.org}
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          ) : (
-            <span className="font-semibold text-ink">{role.org}</span>
-          )}
-        </p>
+      <h3 className="mt-8 text-2xl font-bold tracking-[-0.02em] text-ink sm:text-3xl">{role.title}</h3>
+      <p className="mt-1.5 text-lg text-ink-soft">
+        {role.orgUrl ? (
+          <a href={role.orgUrl} target="_blank" rel="noopener noreferrer" className="pen-link font-semibold text-ink">
+            {role.org}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        ) : (
+          <span className="font-semibold text-ink">{role.org}</span>
+        )}
+      </p>
 
-        <ul className="mt-3 flex flex-wrap gap-x-2 text-sm text-ink-muted">
-          {role.facts.map((fact, index) => (
-            <li key={fact}>
-              {fact}
-              {index < role.facts.length - 1 ? (
-                <span aria-hidden="true" className="pl-2 text-line-strong">
-                  ·
-                </span>
-              ) : null}
-            </li>
-          ))}
-        </ul>
+      <ul className="mt-3 flex flex-wrap gap-x-2 text-sm text-ink-muted">
+        {role.facts.map((fact, index) => (
+          <li key={fact}>
+            {fact}
+            {index < role.facts.length - 1 ? (
+              <span aria-hidden="true" className="pl-2 text-line-strong">
+                ·
+              </span>
+            ) : null}
+          </li>
+        ))}
+      </ul>
 
-        <p className="mt-4 max-w-[62ch] leading-relaxed text-ink-soft">{role.summary}</p>
+      <div data-panel-body className="mt-5 flex flex-1 flex-col">
+        <p className="flex-1 leading-relaxed text-ink-soft">{role.summary}</p>
 
         {role.current && role.orgUrl ? (
           <a
@@ -86,7 +84,7 @@ function RoleRow({ role }: { role: Role }) {
             href={role.orgUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group mt-7 inline-flex items-center gap-3 border border-pen px-5 py-3 font-semibold text-pen transition-colors hover:bg-pen hover:text-pen-ink rounded-[4px]"
+            className="group mt-7 inline-flex w-fit items-center gap-3 rounded-[4px] border border-pen px-5 py-3 font-semibold text-pen transition-colors hover:bg-pen hover:text-pen-ink"
           >
             Visit {new URL(role.orgUrl).host}
             <ArrowUpRight
@@ -101,29 +99,53 @@ function RoleRow({ role }: { role: Role }) {
   );
 }
 
+/** Oldest first, so the horizontal path reads as a journey from left to right. */
+const journey = [...roles].reverse();
+
 export function Experience() {
   return (
-    <section id="experience" aria-labelledby="experience-title" className="border-y border-line bg-ground-sunk/70">
-      <div className="shell py-20 md:py-28">
+    <section
+      id="experience"
+      aria-labelledby="experience-title"
+      data-hscroll
+      className="overflow-hidden border-y border-line bg-ground-sunk/70"
+    >
+      {/* Giant outlined revision letters, drifting behind the cards (desktop scroll mode). */}
+      <div data-hscroll-backdrop aria-hidden="true" className="hscroll-backdrop">
+        {journey.map((role) => (
+          <span key={role.rev}>{role.rev}</span>
+        ))}
+      </div>
+      <div data-hscroll-frame className="shell py-20 md:py-28">
         <SectionHeading
           id="experience"
           title="Experience"
           note="Revision history"
           lead="From a full-time role at SM Technology, to freelancing for clients in Bangladesh, to running my own agency."
         />
-        <div
-          aria-hidden="true"
-          className="hidden grid-cols-[3.5rem_11rem_1fr] gap-x-8 border-t border-line-strong py-3 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-ink-muted md:grid"
-        >
-          <span>Rev</span>
-          <span>Date</span>
-          <span>Description</span>
-        </div>
-        <ol className="border-t border-line-strong">
-          {roles.map((role) => (
-            <RoleRow key={role.rev} role={role} />
+        <ol data-hscroll-track className="grid gap-6 lg:grid-cols-3">
+          {journey.map((role) => (
+            <RoleCard key={role.rev} role={role} />
           ))}
         </ol>
+
+        {/* Dimension line that fills as the journey scrolls (horizontal mode only). */}
+        <div data-hscroll-progress aria-hidden="true" className="mt-10 hidden items-center gap-3">
+          {journey.map((role, index) => (
+            <span key={role.rev} className="contents">
+              <span className="font-mono text-xs font-bold text-ink-muted">{role.rev}</span>
+              {index < journey.length - 1 ? (
+                <span className="relative h-px flex-1 overflow-hidden bg-line-strong">
+                  <span
+                    data-hscroll-fill
+                    className="absolute inset-0 origin-left bg-pen"
+                    style={{ transform: "scaleX(0)" }}
+                  />
+                </span>
+              ) : null}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

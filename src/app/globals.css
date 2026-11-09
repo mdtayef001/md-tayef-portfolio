@@ -26,7 +26,6 @@
 @layer base {
   html {
     color-scheme: dark;
-    scroll-behavior: smooth;
     scroll-padding-top: 5rem;
     -webkit-text-size-adjust: 100%;
     scrollbar-color: var(--color-line-strong) var(--color-ground-sunk);
@@ -442,4 +441,71 @@
 
 .cursor-ring[data-state="label"] .cursor-label {
   opacity: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Experience: horizontal journey (enabled by ScrollMotion on desktop) */
+/* ------------------------------------------------------------------ */
+[data-hscroll].is-horizontal [data-hscroll-frame] {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 5.5rem 3rem;
+}
+
+[data-hscroll].is-horizontal [data-hscroll-track] {
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+  will-change: transform;
+}
+
+[data-hscroll].is-horizontal [data-hscroll-panel] {
+  width: min(44rem, 60vw);
+  flex-shrink: 0;
+}
+
+[data-hscroll].is-horizontal [data-hscroll-progress] {
+  display: flex;
+}
+
+/* Experience backdrop: giant outlined revision letters and a low green glow. */
+.hscroll-backdrop {
+  display: none;
+}
+
+[data-hscroll].is-horizontal .hscroll-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  gap: 18vw;
+  padding-left: 30vw;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hscroll-backdrop span {
+  font-family: var(--font-display);
+  font-size: clamp(18rem, 34vw, 32rem);
+  font-weight: 800;
+  line-height: 1;
+  color: color-mix(in oklab, var(--color-pen) 4%, transparent);
+  -webkit-text-stroke: 2px color-mix(in oklab, var(--color-pen) 32%, transparent);
+}
+
+[data-hscroll].is-horizontal {
+  position: relative;
+  background-image: radial-gradient(
+    ellipse 70% 45% at 50% 105%,
+    color-mix(in oklab, var(--color-pen) 18%, transparent),
+    transparent 70%
+  );
+}
+
+[data-hscroll].is-horizontal [data-hscroll-frame] {
+  position: relative;
+  z-index: 1;
 }

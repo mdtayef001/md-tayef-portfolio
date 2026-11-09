@@ -4,7 +4,11 @@ import { gsap } from "gsap";
 import { useEffect } from "react";
 
 /** How far (as a share of the pointer offset) a button leans toward the cursor. */
-const PULL = 0.35;
+const PULL = 0.12;
+/** Hard cap on the lean, in px, so wide buttons never drift far. */
+const MAX_SHIFT = 5;
+
+const clamp = (value: number) => Math.max(-MAX_SHIFT, Math.min(MAX_SHIFT, value));
 
 /**
  * Magnetic buttons: any element with [data-magnetic] leans toward the mouse
@@ -33,7 +37,7 @@ export function Magnetic() {
 
     const release = () => {
       if (!active) return;
-      gsap.to(active, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.45)", overwrite: true });
+      gsap.to(active, { x: 0, y: 0, duration: 0.5, ease: "power3.out", overwrite: true });
       movers.delete(active);
       active = null;
     };
@@ -46,8 +50,8 @@ export function Magnetic() {
       active = el;
       const rect = el.getBoundingClientRect();
       const { x, y } = moverFor(el);
-      x((event.clientX - (rect.left + rect.width / 2)) * PULL);
-      y((event.clientY - (rect.top + rect.height / 2)) * PULL);
+      x(clamp((event.clientX - (rect.left + rect.width / 2)) * PULL));
+      y(clamp((event.clientY - (rect.top + rect.height / 2)) * PULL));
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
