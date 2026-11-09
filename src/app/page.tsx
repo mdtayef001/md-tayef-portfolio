@@ -6,11 +6,13 @@ import { Hero } from "@/components/sections/hero";
 import { Certificates } from "@/components/sections/certificates";
 import { Projects } from "@/components/sections/projects";
 import { Toolkit } from "@/components/sections/toolkit";
+import { IntroLoader } from "@/components/ui/intro-loader";
 import { RevealObserver } from "@/components/ui/reveal-observer";
 
 export default function Home() {
   return (
     <>
+      <IntroLoader />
       <SiteHeader />
       <main id="main" tabIndex={-1} className="outline-none">
         <Hero />

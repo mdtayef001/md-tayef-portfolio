@@ -85,7 +85,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* Marks animate only when JS runs; without it everything shows drawn. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')",
+            __html:
+              "(function(){var d=document.documentElement;d.classList.add('js');try{if(location.pathname==='/'){if(sessionStorage.getItem('mt-intro'))d.classList.add('intro-seen');else sessionStorage.setItem('mt-intro','1')}else d.classList.add('intro-seen')}catch(e){d.classList.add('intro-seen')}})()",
           }}
         />
         <script
