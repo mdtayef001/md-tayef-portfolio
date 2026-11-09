@@ -88,7 +88,7 @@ export default function ResumePage() {
         <a
           href={resumePdf}
           download
-          className="inline-flex items-center gap-2 rounded-lg bg-(--r-accent) px-4 py-2.5 text-sm font-semibold text-[#1a1203] transition-opacity hover:opacity-90"
+          className="inline-flex items-center gap-2 rounded-lg bg-(--r-accent) px-4 py-2.5 text-sm font-semibold text-[#0a1324] transition-opacity hover:opacity-90"
         >
           <Download aria-hidden="true" className="size-4" />
           Download PDF
@@ -133,7 +133,7 @@ export default function ResumePage() {
             <a
               href={resumePdf}
               download
-              className="inline-flex items-center gap-2.5 rounded-lg bg-(--r-accent) px-5 py-3 font-semibold text-[#1a1203] transition-opacity hover:opacity-90"
+              className="inline-flex items-center gap-2.5 rounded-lg bg-(--r-accent) px-5 py-3 font-semibold text-[#0a1324] transition-opacity hover:opacity-90"
             >
               <Download aria-hidden="true" className="size-4.5" />
               Download resume (PDF)

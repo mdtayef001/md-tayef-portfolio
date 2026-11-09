@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/* Tokens: cyanotype navy, steel linework, amber redline pen           */
+/* Tokens: cyanotype navy, steel linework, green redline pen (from the portrait backdrop) */
 /* ------------------------------------------------------------------ */
 @theme {
   --color-ground: #0a1324;
@@ -12,9 +12,9 @@
   --color-ink: #e9eef7;
   --color-ink-soft: #b4c2d8;
   --color-ink-muted: #8fa1bd;
-  --color-pen: #f6a723;
-  --color-pen-soft: #ffc565;
-  --color-pen-ink: #1a1203;
+  --color-pen: #b7e29a;
+  --color-pen-soft: #d4f0bf;
+  --color-pen-ink: #0a1324;
 
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
@@ -132,7 +132,7 @@
 
 /* Focus one sheet: the others recede (pointer devices only). */
 @media (hover: hover) {
-  .sheet-set:has(.sheet:hover) .sheet:not(:hover) {
+  .sheet-set:not(.is-stacking):has(.sheet:hover) .sheet:not(:hover) {
     opacity: 0.5;
   }
 }
@@ -155,7 +155,7 @@
   --r-text: #c9d1df;
   --r-strong: #ffffff;
   --r-muted: #8995a8;
-  --r-accent: #f6a723;
+  --r-accent: #b7e29a;
   --r-line: rgb(255 255 255 / 0.13);
   --r-card: rgb(255 255 255 / 0.03);
   background: var(--r-bg);
@@ -181,7 +181,7 @@
     --r-text: #2f3743;
     --r-strong: #0b1220;
     --r-muted: #5a6475;
-    --r-accent: #a55f00;
+    --r-accent: #3c6e1e;
     --r-line: #d6dbe3;
     --r-card: transparent;
     font-size: 13px;
@@ -358,4 +358,87 @@
     clip-path: inset(0 0 100% 0);
     visibility: hidden;
   }
+}
+
+/* ------------------------------------------------------------------ */
+/* Stacked drawing set (enabled by ScrollMotion on tall desktops)      */
+/* ------------------------------------------------------------------ */
+.sheet-set.is-stacking .sheet {
+  position: sticky;
+  top: calc(5rem + var(--stack-index, 0) * 0.875rem);
+}
+
+.sheet-set.is-stacking [data-sheet-paper] {
+  will-change: transform;
+  box-shadow: 0 -12px 32px -12px rgb(3 7 15 / 0.7);
+}
+
+/* The sheet underneath recedes under a shade instead of a costly filter. */
+.sheet-set.is-stacking [data-sheet-paper]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-ground-sunk);
+  opacity: var(--shade, 0);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Cursor ring (desktop, fine pointer only)                            */
+/* ------------------------------------------------------------------ */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin: -1rem 0 0 -1rem;
+  border: 1.5px solid var(--color-pen);
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    width 0.35s var(--ease-out-expo),
+    height 0.35s var(--ease-out-expo),
+    margin 0.35s var(--ease-out-expo),
+    background-color 0.25s,
+    border-color 0.25s,
+    opacity 0.2s;
+}
+
+.cursor-ring[data-visible="true"] {
+  opacity: 1;
+}
+
+.cursor-ring[data-state="hover"] {
+  width: 3.25rem;
+  height: 3.25rem;
+  margin: -1.625rem 0 0 -1.625rem;
+  background-color: color-mix(in oklab, var(--color-pen) 14%, transparent);
+}
+
+.cursor-ring[data-state="label"] {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: -2.25rem 0 0 -2.25rem;
+  border-color: transparent;
+  background-color: var(--color-pen);
+}
+
+.cursor-label {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-pen-ink);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cursor-ring[data-state="label"] .cursor-label {
+  opacity: 1;
 }

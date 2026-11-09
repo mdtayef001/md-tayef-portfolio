@@ -1,5 +1,5 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { projects, type FlowNode, type Project } from "@/data/site";
 import { BrandIcon } from "@/components/ui/brand-icon";
 import { CircleMark } from "@/components/ui/redline";
@@ -8,9 +8,9 @@ import { SectionHeading } from "@/components/ui/section-heading";
 function Flow({ nodes, caption }: { nodes: FlowNode[]; caption: string }) {
   return (
     <figure>
-      <ol className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-0">
+      <ol data-flow className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-0">
         {nodes.map((node, index) => (
-          <li key={node.label} className="flex flex-col items-stretch sm:flex-1 sm:flex-row">
+          <li key={node.label} data-flow-step className="flex flex-col items-stretch sm:flex-1 sm:flex-row">
             <div className="flex-1 border border-line-strong bg-ground px-3 py-2.5">
               <span className="block text-sm font-semibold leading-snug text-ink">{node.label}</span>
               {node.detail ? (
@@ -80,11 +80,16 @@ function BlockLink({ href, children, label }: { href: string; children: ReactNod
   );
 }
 
-function ProjectSheet({ project }: { project: Project }) {
+function ProjectSheet({ project, index }: { project: Project; index: number }) {
   const titleId = `${project.sheet}-title`;
   return (
-    <article aria-labelledby={titleId} data-reveal className="sheet transition-opacity duration-500 ease-out-expo">
-      <div className="settle relative border border-line-strong bg-ground-raised/70">
+    <article
+      aria-labelledby={titleId}
+      data-reveal
+      className="sheet transition-opacity duration-500 ease-out-expo"
+      style={{ "--stack-index": index } as CSSProperties}
+    >
+      <div data-sheet-paper className="settle relative border border-line-strong bg-ground-raised">
         {/* Registration marks on the sheet frame */}
         <span aria-hidden="true" className="absolute -left-px -top-px size-3 border-l-2 border-t-2 border-ink-muted" />
         <span
@@ -174,9 +179,9 @@ export function Projects() {
         note={`${projects.length} sheets`}
         lead="Three projects, each drawn from its real architecture: a SaaS platform, an AI agent and a static site generator written from scratch."
       />
-      <div className="sheet-set flex flex-col gap-8 md:gap-10">
-        {projects.map((project) => (
-          <ProjectSheet key={project.sheet} project={project} />
+      <div data-sheet-stack className="sheet-set flex flex-col gap-8 md:gap-10">
+        {projects.map((project, index) => (
+          <ProjectSheet key={project.sheet} project={project} index={index} />
         ))}
       </div>
     </section>

@@ -24,6 +24,7 @@ export function CopyButton({ value, label }: { value: string; label: string }) {
   return (
     <button
       type="button"
+      data-cursor="Copy"
       onClick={copy}
       className="inline-flex items-center gap-2 border border-line-strong px-4 py-2.5 text-sm font-semibold text-ink-soft transition-colors hover:border-ink-soft hover:text-ink"
     >
