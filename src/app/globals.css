@@ -509,3 +509,88 @@
   position: relative;
   z-index: 1;
 }
+
+/* ------------------------------------------------------------------ */
+/* Rolling nav labels                                                  */
+/* ------------------------------------------------------------------ */
+.roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.roll-row {
+  display: block;
+  white-space: nowrap;
+}
+
+.roll-copy {
+  position: absolute;
+  inset: 0;
+  color: var(--color-pen);
+}
+
+.roll-char {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .roll-char {
+    transition: translate 0.5s var(--ease-out-expo);
+    transition-delay: calc(var(--i, 0) * 22ms);
+  }
+
+  .roll-copy .roll-char {
+    translate: 0 110%;
+  }
+
+  :is(a, button):is(:hover, :focus-visible) .roll-row:not(.roll-copy) .roll-char {
+    translate: 0 -110%;
+  }
+
+  :is(a, button):is(:hover, :focus-visible) .roll-copy .roll-char {
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roll-copy {
+    display: none;
+  }
+
+  :is(a, button):is(:hover, :focus-visible) .roll {
+    color: var(--color-pen);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero entrance: starting states, held only while the GSAP timeline   */
+/* can run. A late failsafe reveals everything if scripts never load.  */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-hero-char] {
+    transform: translateY(110%);
+    animation: hero-failsafe 0.01s linear 4.5s forwards;
+  }
+
+  .js [data-hero="item"],
+  .js [data-hero="cell"] {
+    opacity: 0;
+    animation: hero-failsafe 0.01s linear 4.5s forwards;
+  }
+
+  .js [data-hero="photo"] {
+    clip-path: inset(100% 0% 0% 0%);
+    animation: hero-failsafe 0.01s linear 4.5s forwards;
+  }
+}
+
+@keyframes hero-failsafe {
+  to {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    clip-path: inset(0% 0% 0% 0%);
+  }
+}

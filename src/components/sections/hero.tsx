@@ -41,18 +41,39 @@ export function Hero() {
         <div className="lg:col-span-7 lg:pt-6">
           <h1
             id="hero-title"
+            aria-label={site.name}
             className="text-[clamp(3.75rem,13vw,6rem)] font-extrabold leading-[0.92] tracking-[-0.04em] text-ink"
           >
-            Md Tayef<span className="text-pen">.</span>
+            {/* Each letter rises out of a mask on load; the mask's padding keeps descenders intact. */}
+            <span aria-hidden="true" className="-mb-[0.14em] block overflow-hidden pb-[0.14em]">
+              {site.name.split(" ").map((word, w) => (
+                <span key={word}>
+                  {w > 0 ? " " : null}
+                  {[...word].map((char, i) => (
+                    <span key={i} data-hero-char className="inline-block">
+                      {char}
+                    </span>
+                  ))}
+                </span>
+              ))}
+              <span data-hero-char className="inline-block text-pen">
+                .
+              </span>
+            </span>
           </h1>
           <WavyRule className="mt-5 h-3.5 w-48" />
 
-          <p className="mt-8 max-w-[24ch] font-display text-[clamp(1.6rem,3.6vw,2.25rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-ink">
+          <p
+            data-hero="item"
+            className="mt-8 max-w-[24ch] font-display text-[clamp(1.6rem,3.6vw,2.25rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-ink"
+          >
             Web developer building sites that look good <span className="text-pen">and solve real problems.</span>
           </p>
-          <p className="mt-6 max-w-[60ch] text-lg leading-relaxed text-ink-soft">{site.intro}</p>
+          <p data-hero="item" className="mt-6 max-w-[60ch] text-lg leading-relaxed text-ink-soft">
+            {site.intro}
+          </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div data-hero="item" className="mt-10 flex flex-wrap items-center gap-3">
             <a
               data-magnetic
               href={`mailto:${site.email}`}
@@ -81,7 +102,7 @@ export function Hero() {
             <span />
             <DimensionLine label="Detail A" />
             <DimensionLine label="Scale 1:1" vertical />
-            <div className="relative border border-line-strong bg-ground-raised p-2.5 rounded-[4px]">
+            <div data-hero="photo" className="relative rounded-[4px] border border-line-strong bg-ground-raised p-2.5">
               {/* Corner registration ticks */}
               <span
                 aria-hidden="true"
@@ -103,7 +124,7 @@ export function Hero() {
             </div>
           </div>
 
-          <figcaption className="relative mt-5 pl-7">
+          <figcaption data-hero="item" className="relative mt-5 pl-7">
             <LeaderArrow
               delay={0.9}
               className="pointer-events-none absolute -top-3 left-56 hidden h-12 w-20 -scale-100 sm:block"
@@ -132,6 +153,7 @@ export function Hero() {
           {titleBlock.map((cell, index) => (
             <div
               key={cell.label}
+              data-hero="cell"
               className={`border-line-strong px-4 py-3.5 ${index % 2 === 1 ? "border-l" : ""} ${
                 index >= 2 ? "border-t md:border-t-0" : ""
               } ${index === 2 ? "md:border-l" : ""}`}

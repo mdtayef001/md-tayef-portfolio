@@ -6,6 +6,7 @@ import { Hero } from "@/components/sections/hero";
 import { Certificates } from "@/components/sections/certificates";
 import { Projects } from "@/components/sections/projects";
 import { Toolkit } from "@/components/sections/toolkit";
+import { HeroEntrance } from "@/components/ui/hero-entrance";
 import { IntroLoader } from "@/components/ui/intro-loader";
 import { RevealObserver } from "@/components/ui/reveal-observer";
 import { ScrollMotion } from "@/components/ui/scroll-motion";
@@ -26,6 +27,7 @@ export default function Home() {
       <SiteFooter />
       <RevealObserver />
       <ScrollMotion />
+      <HeroEntrance />
     </>
   );
 }

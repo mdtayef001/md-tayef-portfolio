@@ -2,7 +2,7 @@
 
 import { FileText, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { navItems, site, type SectionId } from "@/data/site";
 
 function useActiveSection(ids: readonly SectionId[]) {
@@ -29,6 +29,27 @@ function useActiveSection(ids: readonly SectionId[]) {
 }
 
 const sectionIds = navItems.map((item) => item.id);
+
+/**
+ * Rolling label: on hover the letters slide up one after another while a
+ * green copy rolls in from below. The copy is hidden from screen readers.
+ */
+function RollText({ text }: { text: string }) {
+  const letters = (prefix: string) =>
+    [...text].map((char, i) => (
+      <span key={`${prefix}${i}`} className="roll-char" style={{ "--i": i } as CSSProperties}>
+        {char === " " ? "\u00a0" : char}
+      </span>
+    ));
+  return (
+    <span className="roll">
+      <span className="roll-row">{letters("a")}</span>
+      <span className="roll-row roll-copy" aria-hidden="true">
+        {letters("b")}
+      </span>
+    </span>
+  );
+}
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -86,7 +107,6 @@ export function SiteHeader() {
             <span className="text-pen">{"//"}</span>
             <span className="text-ink">MT</span>
           </span>
-          <span className="field-label hidden transition-colors group-hover:text-ink-soft sm:inline">{site.name}</span>
         </a>
 
         <nav aria-label="Primary" className="hidden md:block">
@@ -97,16 +117,17 @@ export function SiteHeader() {
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
+                    aria-label={item.label}
                     aria-current={isActive ? "location" : undefined}
-                    className={`relative px-3 py-2 text-[0.95rem] font-medium transition-colors ${
+                    className={`group relative block px-3 py-2 text-[0.95rem] font-medium transition-colors ${
                       isActive ? "text-ink" : "text-ink-muted hover:text-ink"
                     }`}
                   >
-                    {item.label}
+                    <RollText text={item.label} />
                     <span
                       aria-hidden="true"
                       className={`absolute inset-x-3 -bottom-0.5 h-0.5 origin-left bg-pen transition-transform duration-500 ease-out-expo ${
-                        isActive ? "scale-x-100" : "scale-x-0"
+                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                       }`}
                     />
                   </a>
@@ -118,11 +139,12 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 md:flex">
           <Link
+            aria-label="Resume"
             href="/resume"
             className="inline-flex items-center gap-2 px-3 py-2 text-sm font-semibold text-ink-soft transition-colors hover:text-ink"
           >
             <FileText aria-hidden="true" className="size-4" />
-            Resume
+            <RollText text="Resume" />
           </Link>
           <a
             data-magnetic
