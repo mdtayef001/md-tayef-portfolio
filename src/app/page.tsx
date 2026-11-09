@@ -10,6 +10,7 @@ import { HeroEntrance } from "@/components/ui/hero-entrance";
 import { IntroLoader } from "@/components/ui/intro-loader";
 import { RevealObserver } from "@/components/ui/reveal-observer";
 import { ScrollMotion } from "@/components/ui/scroll-motion";
+import { SectionEntrance } from "@/components/ui/section-entrance";
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
       <RevealObserver />
       <ScrollMotion />
       <HeroEntrance />
+      <SectionEntrance />
     </>
   );
 }

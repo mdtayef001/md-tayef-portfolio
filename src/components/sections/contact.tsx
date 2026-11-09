@@ -3,6 +3,7 @@ import { site, socials } from "@/data/site";
 import { BrandIcon } from "@/components/ui/brand-icon";
 import { CopyButton } from "@/components/ui/copy-button";
 import { WavyRule } from "@/components/ui/redline";
+import { SplitChars } from "@/components/ui/split-chars";
 
 export function Contact() {
   return (
@@ -13,20 +14,23 @@ export function Contact() {
       className="border-t border-line bg-ground-sunk/70"
     >
       <div className="shell grid gap-14 py-24 md:py-32 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-7">
+        <div data-entrance className="lg:col-span-7">
           <h2
             id="contact-title"
             className="text-[clamp(2.75rem,8vw,5rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-ink"
           >
-            Have a project <span className="text-pen">in mind?</span>
+            <SplitChars text="Have a project" />{" "}
+            <span className="text-pen">
+              <SplitChars text="in mind?" />
+            </span>
           </h2>
           <WavyRule className="mt-6 h-3.5 w-48" />
-          <p className="mt-8 max-w-[52ch] text-lg leading-relaxed text-ink-soft">
+          <p data-entrance-item className="mt-8 max-w-[52ch] text-lg leading-relaxed text-ink-soft">
             Looking for a developer to bring your ideas to life? Let&rsquo;s connect and build something amazing
             together.
           </p>
 
-          <div className="mt-10">
+          <div data-entrance-item className="mt-10">
             <p className="field-label">Email</p>
             <a
               href={`mailto:${site.email}`}
@@ -47,8 +51,10 @@ export function Contact() {
           </div>
         </div>
 
-        <div className="lg:col-span-5 lg:pt-4">
-          <h3 className="field-label">Find me on</h3>
+        <div data-entrance className="lg:col-span-5 lg:pt-4">
+          <h3 data-entrance-item className="field-label">
+            Find me on
+          </h3>
           <ul className="mt-3 border-t border-line-strong">
             {socials.map((social) => {
               const body = (
@@ -64,7 +70,7 @@ export function Contact() {
                 </>
               );
               return (
-                <li key={social.label} className="border-b border-line-strong">
+                <li key={social.label} data-entrance-item className="border-b border-line-strong">
                   {social.href ? (
                     <a
                       href={social.href}
@@ -94,7 +100,7 @@ export function Contact() {
             })}
           </ul>
 
-          <p className="mt-8 leading-relaxed text-ink-soft">
+          <p data-entrance-item className="mt-8 leading-relaxed text-ink-soft">
             Working with a business? You can also reach me through my agency,{" "}
             <a
               href={site.agency.url}

@@ -14,9 +14,9 @@ export function Toolkit() {
         lead="The technologies I build with and the ideas underneath them, grouped by where they sit in a project."
       />
 
-      <div className="border-t border-line-strong" role="list">
+      <div data-entrance className="border-t border-line-strong" role="list">
         {skillGroups.map((group) => (
-          <div key={group.code} role="listitem" className="border-b border-line-strong py-1">
+          <div key={group.code} role="listitem" data-entrance-item className="border-b border-line-strong py-1">
             <div className="group grid gap-x-8 gap-y-4 rounded-[4px] py-6 transition-colors duration-300 hover:bg-pen/10 md:grid-cols-[4.5rem_15rem_1fr] md:items-center md:px-4">
               <span className="hidden font-mono text-sm tracking-[0.14em] text-ink-muted md:block transition-colors duration-300 group-hover:text-pen">
                 {group.code}

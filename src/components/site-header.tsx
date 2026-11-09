@@ -103,10 +103,26 @@ export function SiteHeader() {
 
       <div className="shell flex h-16 items-center justify-between">
         <a href="#top" className="group flex items-center gap-2.5" aria-label={`${site.name}, back to top`}>
-          <span aria-hidden="true" className="font-display text-xl font-extrabold tracking-tight">
-            <span className="text-pen">{"//"}</span>
-            <span className="text-ink">MT</span>
-          </span>
+          {/* The intro's mark; hovering the logo draws it again, stroke by stroke. */}
+          <svg
+            viewBox="0 0 132 60"
+            aria-hidden="true"
+            className="logo-mark h-6 w-auto"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path pathLength={1} style={{ "--d": "0s" } as CSSProperties} className="stroke-pen" d="M14 52 26 8" />
+            <path pathLength={1} style={{ "--d": "0.09s" } as CSSProperties} className="stroke-pen" d="M34 52 46 8" />
+            <path
+              pathLength={1}
+              style={{ "--d": "0.2s" } as CSSProperties}
+              className="stroke-ink"
+              d="M60 52V9l15 25 15-25v43"
+            />
+            <path pathLength={1} style={{ "--d": "0.36s" } as CSSProperties} className="stroke-ink" d="M100 9h28" />
+            <path pathLength={1} style={{ "--d": "0.44s" } as CSSProperties} className="stroke-ink" d="M114 9v43" />
+          </svg>
         </a>
 
         <nav aria-label="Primary" className="hidden md:block">

@@ -594,3 +594,27 @@
     clip-path: inset(0% 0% 0% 0%);
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Header logo: the intro mark, redrawn on hover                       */
+/* ------------------------------------------------------------------ */
+.logo-mark path {
+  stroke-width: 8;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:is(:hover, :focus-visible) > .logo-mark path {
+    animation: logo-redraw 0.5s var(--ease-out-expo) var(--d, 0s) both;
+  }
+}
+
+@keyframes logo-redraw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

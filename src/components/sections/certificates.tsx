@@ -23,9 +23,9 @@ export function Certificates() {
           <span>Certificate</span>
           <span>Record</span>
         </div>
-        <ol>
+        <ol data-entrance>
           {certificates.map((certificate) => (
-            <li key={certificate.href} className="border-b border-line-strong py-1">
+            <li key={certificate.href} data-entrance-item className="border-b border-line-strong py-1">
               <a
                 href={certificate.href}
                 target="_blank"
