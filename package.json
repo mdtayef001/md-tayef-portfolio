@@ -6,12 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "resume:pdf": "node scripts/resume-pdf.mjs"
   },
   "dependencies": {
+    "lucide-react": "^1.70.0",
     "next": "16.4.5",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "simple-icons": "^16.37.0"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",

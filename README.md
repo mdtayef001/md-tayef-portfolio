@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Md Tayef: Portfolio
 
-## Getting Started
+Personal portfolio built with Next.js 16 (App Router), TypeScript and Tailwind CSS v4.
+The visual idea is an engineer's drawing set: each project is a "sheet" with a title
+block, experience is a revision table, and amber "redline" pen marks draw on as you scroll.
 
-First, run the development server:
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # production build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editing content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Every fact on the site lives in **`src/data/site.ts`**. Components only decide how it looks.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| To change | Edit |
+| --- | --- |
+| Intro, email, agency | `site` |
+| Social links | `socials` (leave `href` out to show a handle as text only) |
+| Skills | `skillGroups` |
+| Experience | `roles` (newest first) |
+| Projects | `projects` (`flow` is the "How it works" diagram) |
+| Certificates | `learning.certificates` (newest first, `awarded` as `YYYY-MM-DD`) |
+| Boot.dev profile button | `learning.profileUrl` (hidden while empty) |
 
-## Learn More
+## Resume and PDF
 
-To learn more about Next.js, take a look at the following resources:
+`/resume` is the resume page. Printed, the same page becomes an A4 PDF on white paper.
+The **Download PDF** buttons serve `public/md-tayef-resume.pdf`, generated from that page.
+After changing content, regenerate it:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run dev              # in one terminal
+npm run resume:pdf       # in another; writes public/md-tayef-resume.pdf
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The script drives your installed Chrome/Chromium (set `CHROME_PATH` if it is not on your PATH).
 
-## Deploy on Vercel
+## Deploying
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Set `NEXT_PUBLIC_SITE_URL` to the live domain (see `.env.example`) so canonical links,
+Open Graph tags, the sitemap and robots.txt point to the right place.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Structure
+
+```
+src/
+├── app/                 layout (fonts, metadata, JSON-LD), page, resume/, 404, icon, robots, sitemap
+├── assets/tayef.png     portrait (optimised by next/image)
+├── components/
+│   ├── sections/        hero, projects, toolkit, experience, certificates, contact
+│   ├── ui/              brand icons, redline marks, reveal observer, headings, copy button
+│   ├── site-header.tsx  sticky nav, active-section tracking, mobile menu
+│   └── site-footer.tsx
+└── data/site.ts         all content
+```
+
+Icons: Lucide for UI, `simple-icons` for technology and brand logos.
+Motion respects `prefers-reduced-motion`; without JavaScript all content and marks still render.

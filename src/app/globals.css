@@ -1,26 +1,220 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------ */
+/* Tokens: cyanotype navy, steel linework, amber redline pen           */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-ground: #0a1324;
+  --color-ground-raised: #0f1b31;
+  --color-ground-sunk: #070e1b;
+  --color-line: #22324f;
+  --color-line-strong: #34496f;
+  --color-ink: #e9eef7;
+  --color-ink-soft: #b4c2d8;
+  --color-ink-muted: #8fa1bd;
+  --color-pen: #f6a723;
+  --color-pen-soft: #ffc565;
+  --color-pen-ink: #1a1203;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--color-line-strong) var(--color-ground-sunk);
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-ground);
+    /* Drafting film: fine 24px grid with a major line every 120px. */
+    background-image:
+      linear-gradient(rgb(120 160 220 / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(120 160 220 / 0.07) 1px, transparent 1px),
+      linear-gradient(rgb(120 160 220 / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(120 160 220 / 0.03) 1px, transparent 1px);
+    background-size:
+      120px 120px,
+      120px 120px,
+      24px 24px,
+      24px 24px;
+    background-position: -1px -1px;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    caret-color: var(--color-pen);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-pen);
+    color: var(--color-pen-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-pen);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ------------------------------------------------------------------ */
+/* Redline marks: drawn on when their section enters the viewport      */
+/* ------------------------------------------------------------------ */
+.redline path,
+.redline line,
+.redline polyline,
+.redline circle,
+.redline ellipse {
+  fill: none;
+  stroke: var(--color-pen);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] .redline [pathLength] {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.1s var(--ease-out-expo);
+    transition-delay: var(--draw-delay, 0.15s);
+  }
+
+  .js [data-reveal][data-inview] .redline [pathLength] {
+    stroke-dashoffset: 0;
+  }
+
+  /* Sheets settle onto the table: already visible, just a short lift. */
+  .js [data-reveal] .settle {
+    translate: 0 14px;
+    transition: translate 0.9s var(--ease-out-expo);
+  }
+
+  .js [data-reveal][data-inview] .settle {
+    translate: 0 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Links set in the drawing's hand                                     */
+/* ------------------------------------------------------------------ */
+.pen-link {
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in oklab, var(--color-pen) 70%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.3em;
+  transition:
+    text-decoration-color 0.2s,
+    color 0.2s;
+}
+
+.pen-link:hover {
+  color: var(--color-pen-soft);
+  text-decoration-color: var(--color-pen);
+}
+
+/* Focus one sheet: the others recede (pointer devices only). */
+@media (hover: hover) {
+  .sheet-set:has(.sheet:hover) .sheet:not(:hover) {
+    opacity: 0.5;
+  }
+}
+
+/* Field label in the drawing's lettering: set in the body face, not mono. */
+@utility field-label {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Resume page: screen colours, swapped to paper and ink for the PDF   */
+/* ------------------------------------------------------------------ */
+.resume {
+  --r-bg: #070d1c;
+  --r-text: #c9d1df;
+  --r-strong: #ffffff;
+  --r-muted: #8995a8;
+  --r-accent: #f6a723;
+  --r-line: rgb(255 255 255 / 0.13);
+  --r-card: rgb(255 255 255 / 0.03);
+  background: var(--r-bg);
+  color: var(--r-text);
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 13mm 14mm;
+  }
+
+  /* A dark color-scheme makes Chrome paint the page margins dark. */
+  html,
+  body {
+    color-scheme: light;
+    background: #ffffff !important;
+    background-image: none !important;
+  }
+
+  .resume {
+    --r-bg: #ffffff;
+    --r-text: #2f3743;
+    --r-strong: #0b1220;
+    --r-muted: #5a6475;
+    --r-accent: #a55f00;
+    --r-line: #d6dbe3;
+    --r-card: transparent;
+    font-size: 13px;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* One page container: every section shares the same width and left edge. */
+@utility shell {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (width >= 80rem) {
+    padding-inline: 3rem;
+  }
+}
+
+/* The resume reads as one narrow column; header and footer share its edges. */
+@utility shell-narrow {
+  width: 100%;
+  max-width: 60rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
 }
