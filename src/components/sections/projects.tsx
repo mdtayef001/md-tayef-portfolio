@@ -11,7 +11,7 @@ function Flow({ nodes, caption }: { nodes: FlowNode[]; caption: string }) {
       <ol data-flow className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-0">
         {nodes.map((node, index) => (
           <li key={node.label} data-flow-step className="flex flex-col items-stretch sm:flex-1 sm:flex-row">
-            <div className="flex-1 border border-line-strong bg-ground px-3 py-2.5">
+            <div className="flex-1 border border-line-strong bg-ground px-3 py-2.5 rounded-[2px]">
               <span className="block text-sm font-semibold leading-snug text-ink">{node.label}</span>
               {node.detail ? (
                 <span className="mt-0.5 block text-xs leading-snug text-ink-muted">{node.detail}</span>
@@ -89,12 +89,18 @@ function ProjectSheet({ project, index }: { project: Project; index: number }) {
       className="sheet transition-opacity duration-500 ease-out-expo"
       style={{ "--stack-index": index } as CSSProperties}
     >
-      <div data-sheet-paper className="settle relative border border-line-strong bg-ground-raised">
+      <div
+        data-sheet-paper
+        className="settle relative border border-line-strong bg-ground-raised rounded-[4px] overflow-hidden"
+      >
         {/* Registration marks on the sheet frame */}
-        <span aria-hidden="true" className="absolute -left-px -top-px size-3 border-l-2 border-t-2 border-ink-muted" />
         <span
           aria-hidden="true"
-          className="absolute -bottom-px -right-px size-3 border-b-2 border-r-2 border-ink-muted"
+          className="absolute -left-px -top-px size-3 border-l-2 border-t-2 border-ink-muted rounded-tl-[4px]"
+        />
+        <span
+          aria-hidden="true"
+          className="absolute -bottom-px -right-px size-3 border-b-2 border-r-2 border-ink-muted rounded-br-[4px]"
         />
 
         <div className="grid gap-8 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">

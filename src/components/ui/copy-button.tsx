@@ -23,10 +23,11 @@ export function CopyButton({ value, label }: { value: string; label: string }) {
 
   return (
     <button
+      data-magnetic
       type="button"
       data-cursor="Copy"
       onClick={copy}
-      className="inline-flex items-center gap-2 border border-line-strong px-4 py-2.5 text-sm font-semibold text-ink-soft transition-colors hover:border-ink-soft hover:text-ink"
+      className="inline-flex items-center gap-2 border border-line-strong px-4 py-2.5 text-sm font-semibold text-ink-soft transition-colors hover:border-ink-soft hover:text-ink rounded-[4px]"
     >
       {state === "copied" ? (
         <Check aria-hidden="true" className="size-4 text-pen" />

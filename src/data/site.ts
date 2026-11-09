@@ -332,6 +332,8 @@ export const projects: Project[] = [
 
 export type Certificate = {
   title: string;
+  /** Short subject label, taken from the course title. */
+  topic: string;
   href: string;
   /** ISO date the certificate was awarded. */
   awarded: string;
@@ -345,41 +347,49 @@ export const learning = {
   certificates: [
     {
       title: "Learn HTTP Clients in Python",
+      topic: "Networking & APIs",
       href: "https://www.boot.dev/certificates/c0c07737-e04f-485b-8560-9ac47c32524c",
       awarded: "2026-08-11",
     },
     {
       title: "Learn SQL",
+      topic: "Databases",
       href: "https://www.boot.dev/certificates/d02e6f15-b7b5-4d8d-b5e6-1633601580ac",
       awarded: "2026-08-05",
     },
     {
       title: "Learn Data Structures and Algorithms in Python",
+      topic: "Computer science",
       href: "https://www.boot.dev/certificates/50db22ea-e138-437a-bf62-e55dbeb31555",
       awarded: "2026-07-04",
     },
     {
       title: "Learn Functional Programming in Python",
+      topic: "Programming paradigms",
       href: "https://www.boot.dev/certificates/a8fb662f-20ec-432d-ae0e-37bdf82ed2ad",
       awarded: "2026-01-22",
     },
     {
       title: "Learn Object Oriented Programming in Python",
+      topic: "Programming paradigms",
       href: "https://www.boot.dev/certificates/04f41104-98d4-41c2-9442-38b83ab1d0ae",
       awarded: "2025-11-25",
     },
     {
       title: "Learn Git",
+      topic: "Version control",
       href: "https://www.boot.dev/certificates/f72a3f2c-c1db-4f4b-9c26-c37df3eb544f",
       awarded: "2025-09-29",
     },
     {
       title: "Learn Linux",
+      topic: "Operating systems",
       href: "https://www.boot.dev/certificates/97613368-3778-44ca-8d47-252f1ca0a850",
       awarded: "2025-09-23",
     },
     {
       title: "Introduction to Python",
+      topic: "Python fundamentals",
       href: "https://www.boot.dev/certificates/3c99d1f2-4504-4c8e-9467-34c342081e59",
       awarded: "2025-09-09",
     },

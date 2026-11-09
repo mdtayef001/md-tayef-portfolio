@@ -86,9 +86,10 @@ export default function ResumePage() {
           </span>
         </Link>
         <a
+          data-magnetic
           href={resumePdf}
           download
-          className="inline-flex items-center gap-2 rounded-lg bg-(--r-accent) px-4 py-2.5 text-sm font-semibold text-[#0a1324] transition-opacity hover:opacity-90"
+          className="inline-flex items-center gap-2 rounded-[4px] bg-(--r-accent) px-4 py-2.5 text-sm font-semibold text-[#0a1324] transition-opacity hover:opacity-90"
         >
           <Download aria-hidden="true" className="size-4" />
           Download PDF
@@ -131,9 +132,10 @@ export default function ResumePage() {
 
           <div className="mt-8 flex flex-wrap items-center gap-6 print:hidden">
             <a
+              data-magnetic
               href={resumePdf}
               download
-              className="inline-flex items-center gap-2.5 rounded-lg bg-(--r-accent) px-5 py-3 font-semibold text-[#0a1324] transition-opacity hover:opacity-90"
+              className="inline-flex items-center gap-2.5 rounded-[4px] bg-(--r-accent) px-5 py-3 font-semibold text-[#0a1324] transition-opacity hover:opacity-90"
             >
               <Download aria-hidden="true" className="size-4.5" />
               Download resume (PDF)
@@ -216,7 +218,7 @@ export default function ResumePage() {
             {projects.map((project) => (
               <li
                 key={project.sheet}
-                className="rounded-xl border border-(--r-line) bg-(--r-card) p-6 print:break-inside-avoid print:rounded-none print:border-0 print:p-0"
+                className="rounded-[4px] border border-(--r-line) bg-(--r-card) p-6 print:break-inside-avoid print:rounded-none print:border-0 print:p-0"
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                   <h3 className="text-xl font-semibold text-(--r-strong) print:text-base">

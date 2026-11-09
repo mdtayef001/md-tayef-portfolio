@@ -82,10 +82,11 @@ function RoleRow({ role }: { role: Role }) {
 
         {role.current && role.orgUrl ? (
           <a
+            data-magnetic
             href={role.orgUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group mt-7 inline-flex items-center gap-3 border border-pen px-5 py-3 font-semibold text-pen transition-colors hover:bg-pen hover:text-pen-ink"
+            className="group mt-7 inline-flex items-center gap-3 border border-pen px-5 py-3 font-semibold text-pen transition-colors hover:bg-pen hover:text-pen-ink rounded-[4px]"
           >
             Visit {new URL(role.orgUrl).host}
             <ArrowUpRight

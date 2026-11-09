@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Figtree, JetBrains_Mono } from "next/font/google";
 import { CursorRing } from "@/components/ui/cursor-ring";
+import { Magnetic } from "@/components/ui/magnetic";
 import { site, socials } from "@/data/site";
 import "./globals.css";
 
@@ -98,6 +99,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-dvh">
         {children}
         <CursorRing />
+        <Magnetic />
       </body>
     </html>
   );

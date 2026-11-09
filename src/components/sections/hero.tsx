@@ -54,15 +54,17 @@ export function Hero() {
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
+              data-magnetic
               href={`mailto:${site.email}`}
-              className="group inline-flex items-center gap-2.5 bg-pen px-6 py-3.5 font-semibold text-pen-ink transition-[background-color,translate] duration-300 hover:-translate-y-0.5 hover:bg-pen-soft"
+              className="group inline-flex items-center gap-2.5 bg-pen px-6 py-3.5 font-semibold text-pen-ink transition-[background-color,translate] duration-300 hover:-translate-y-0.5 hover:bg-pen-soft rounded-[4px]"
             >
               <Mail className="size-4.5" aria-hidden="true" />
               Start a project
             </a>
             <a
+              data-magnetic
               href="#work"
-              className="group inline-flex items-center gap-2.5 border border-line-strong px-6 py-3.5 font-semibold text-ink transition-colors duration-300 hover:border-ink-soft"
+              className="group inline-flex items-center gap-2.5 border border-line-strong px-6 py-3.5 font-semibold text-ink transition-colors duration-300 hover:border-ink-soft rounded-[4px]"
             >
               See the work
               <ArrowDown
@@ -79,12 +81,15 @@ export function Hero() {
             <span />
             <DimensionLine label="Detail A" />
             <DimensionLine label="Scale 1:1" vertical />
-            <div className="relative border border-line-strong bg-ground-raised p-2.5">
+            <div className="relative border border-line-strong bg-ground-raised p-2.5 rounded-[4px]">
               {/* Corner registration ticks */}
-              <span aria-hidden="true" className="absolute -left-px -top-px size-4 border-l-2 border-t-2 border-pen" />
               <span
                 aria-hidden="true"
-                className="absolute -bottom-px -right-px size-4 border-b-2 border-r-2 border-pen"
+                className="absolute -left-px -top-px size-4 border-l-2 border-t-2 border-pen rounded-tl-[4px]"
+              />
+              <span
+                aria-hidden="true"
+                className="absolute -bottom-px -right-px size-4 border-b-2 border-r-2 border-pen rounded-br-[4px]"
               />
               <Image
                 src={portrait}
@@ -93,7 +98,7 @@ export function Hero() {
                 sizes="(min-width: 1440px) 560px, (min-width: 1024px) 40vw, (min-width: 640px) 448px, 90vw"
                 loading="eager"
                 fetchPriority="high"
-                className="aspect-square w-full object-cover"
+                className="aspect-square w-full rounded-[2px] object-cover"
               />
             </div>
           </div>
@@ -123,7 +128,7 @@ export function Hero() {
 
       {/* Sheet title block */}
       <div className="shell">
-        <dl className="grid grid-cols-2 border border-line-strong bg-ground/80 md:grid-cols-4">
+        <dl className="grid grid-cols-2 border border-line-strong bg-ground/80 md:grid-cols-4 rounded-[4px] overflow-hidden">
           {titleBlock.map((cell, index) => (
             <div
               key={cell.label}

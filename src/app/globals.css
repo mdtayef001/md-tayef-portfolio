@@ -378,6 +378,7 @@
   content: "";
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   background: var(--color-ground-sunk);
   opacity: var(--shade, 0);
   pointer-events: none;

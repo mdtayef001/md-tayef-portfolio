@@ -125,8 +125,9 @@ export function SiteHeader() {
             Resume
           </Link>
           <a
+            data-magnetic
             href={`mailto:${site.email}`}
-            className="inline-flex items-center border border-pen px-4 py-2 text-sm font-semibold text-pen transition-colors hover:bg-pen hover:text-pen-ink"
+            className="inline-flex items-center border border-pen px-4 py-2 text-sm font-semibold text-pen transition-colors hover:bg-pen hover:text-pen-ink rounded-[4px]"
           >
             Hire me
           </a>
@@ -172,7 +173,7 @@ export function SiteHeader() {
           </ul>
           <a
             href={`mailto:${site.email}`}
-            className="mt-8 flex items-center justify-center bg-pen px-5 py-4 font-semibold text-pen-ink"
+            className="mt-8 flex items-center justify-center bg-pen px-5 py-4 font-semibold text-pen-ink rounded-[4px]"
           >
             Email me about a project
           </a>

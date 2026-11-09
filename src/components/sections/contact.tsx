@@ -36,8 +36,9 @@ export function Contact() {
             </a>
             <div className="mt-5 flex flex-wrap gap-3">
               <a
+                data-magnetic
                 href={`mailto:${site.email}?subject=${encodeURIComponent("Project enquiry")}`}
-                className="inline-flex items-center gap-2 bg-pen px-5 py-2.5 text-sm font-semibold text-pen-ink transition-colors hover:bg-pen-soft"
+                className="inline-flex items-center gap-2 bg-pen px-5 py-2.5 text-sm font-semibold text-pen-ink transition-colors hover:bg-pen-soft rounded-[4px]"
               >
                 Write an email
               </a>
